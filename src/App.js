@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import "./App.css";
-import { addTodo } from "./redux/modules/todos";
+import { addTodo, deleteTodo } from "./redux/modules/todos";
 import { useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
@@ -27,6 +27,11 @@ function App() {
       setTodo({ id: "", title: "", content: "", isDone: false });
       inputTitle.current.focus();
     }
+  };
+
+  const handleDeleteTodo = (id) => {
+    const check = window.confirm("정말 삭제하시겠습니까?");
+    check && dispatch(deleteTodo(id));
   };
   return (
     <main>
@@ -70,7 +75,9 @@ function App() {
                     <button>상세보기</button>
                   </div>
                   <div>
-                    <button>삭제</button>
+                    <button onClick={() => handleDeleteTodo(todo.id)}>
+                      삭제
+                    </button>
                     <button>완료</button>
                   </div>
                 </div>
