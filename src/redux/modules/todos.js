@@ -1,5 +1,6 @@
 const ADD_TODO = "todos/ADD_TODO";
 const DELETE_TODO = "todos/DELETE_TODO";
+const CHANGE_ISDONE_TODO = "todos/CHANGE_ISDONE_TODO";
 
 export const addTodo = (todo) => {
   return {
@@ -12,6 +13,13 @@ export const deleteTodo = (todoId) => {
   return {
     type: DELETE_TODO,
     todoId,
+  };
+};
+
+export const changeIsdoneTodo = (todo) => {
+  return {
+    type: CHANGE_ISDONE_TODO,
+    todo,
   };
 };
 
@@ -36,6 +44,12 @@ const todos = (state = initialState, action) => {
       return state.concat(action.todo);
     case DELETE_TODO:
       return state.filter((item) => item.id !== action.todoId);
+    case CHANGE_ISDONE_TODO:
+      return state.map((item) =>
+        item.id !== action.todo.id
+          ? item
+          : { ...item, isDone: !action.todo.isDone }
+      );
     default:
       return state;
   }
