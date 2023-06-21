@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import "./App.css";
-import { addTodo, deleteTodo } from "./redux/modules/todos";
+import { addTodo, deleteTodo, changeIsdoneTodo } from "./redux/modules/todos";
 import { useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
@@ -78,7 +78,9 @@ function App() {
                     <button onClick={() => handleDeleteTodo(todo.id)}>
                       삭제
                     </button>
-                    <button>완료</button>
+                    <button onClick={() => dispatch(changeIsdoneTodo(todo))}>
+                      {todo.isDone ? "취소" : "완료"}
+                    </button>
                   </div>
                 </div>
               </li>
